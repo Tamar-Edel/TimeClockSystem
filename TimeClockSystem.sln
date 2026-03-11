@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "server", "server", "{97118FF3-9655-4B69-8DBE-9B2E110FA41E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeClockSystem.API", "server\TimeClockSystem.API\TimeClockSystem.API.csproj", "{DDB0F268-8DA7-4E22-B698-53BBAD1B525F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeClockSystem.Core", "server\TimeClockSystem.Core\TimeClockSystem.Core.csproj", "{D5202EBC-8B9F-4C59-BAFE-08AEEE707097}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeClockSystem.Infrastructure", "server\TimeClockSystem.Infrastructure\TimeClockSystem.Infrastructure.csproj", "{E7826211-85D9-4FE9-A1E1-01FC89D55D87}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DDB0F268-8DA7-4E22-B698-53BBAD1B525F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDB0F268-8DA7-4E22-B698-53BBAD1B525F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDB0F268-8DA7-4E22-B698-53BBAD1B525F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDB0F268-8DA7-4E22-B698-53BBAD1B525F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5202EBC-8B9F-4C59-BAFE-08AEEE707097}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5202EBC-8B9F-4C59-BAFE-08AEEE707097}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5202EBC-8B9F-4C59-BAFE-08AEEE707097}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5202EBC-8B9F-4C59-BAFE-08AEEE707097}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7826211-85D9-4FE9-A1E1-01FC89D55D87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7826211-85D9-4FE9-A1E1-01FC89D55D87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7826211-85D9-4FE9-A1E1-01FC89D55D87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7826211-85D9-4FE9-A1E1-01FC89D55D87}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DDB0F268-8DA7-4E22-B698-53BBAD1B525F} = {97118FF3-9655-4B69-8DBE-9B2E110FA41E}
+		{D5202EBC-8B9F-4C59-BAFE-08AEEE707097} = {97118FF3-9655-4B69-8DBE-9B2E110FA41E}
+		{E7826211-85D9-4FE9-A1E1-01FC89D55D87} = {97118FF3-9655-4B69-8DBE-9B2E110FA41E}
+	EndGlobalSection
+EndGlobal
