@@ -28,37 +28,46 @@ export default function LoginPage() {
   }
 
   return (
-    <div>
-      <h1>Sign In</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+    <div className="login-wrap">
+      <div className="login-card">
+        <div className="login-title">TimeClock</div>
+        <div className="login-sub">Employee Attendance System</div>
+
+        {error && <div className="login-error">{error}</div>}
+
+        <form onSubmit={handleSubmit}>
+          <div className="field">
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="field">
+            <label htmlFor="password">Password</label>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleSubmit(e)}
+              required
+            />
+          </div>
+
+          <button className="btn-login" type="submit" disabled={isLoading}>
+            {isLoading ? 'AUTHENTICATING…' : 'SIGN IN'}
+          </button>
+        </form>
+
+        <div className="login-footer">
+          Don't have an account? <Link to="/register">Create one</Link>
         </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        {error && <p>{error}</p>}
-        <button type="submit" disabled={isLoading}>
-          {isLoading ? 'Signing in…' : 'Sign In'}
-        </button>
-      </form>
-      <p>
-        Don't have an account? <Link to="/register">Create one</Link>
-      </p>
+      </div>
     </div>
   )
 }

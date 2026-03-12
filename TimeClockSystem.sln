@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeClockSystem.Core", "ser
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeClockSystem.Infrastructure", "server\TimeClockSystem.Infrastructure\TimeClockSystem.Infrastructure.csproj", "{E7826211-85D9-4FE9-A1E1-01FC89D55D87}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeClockSystem.Tests", "server\TimeClockSystem.Tests\TimeClockSystem.Tests.csproj", "{63C0BFA7-A0D9-4F81-99FA-32C2015BE10F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,10 +34,15 @@ Global
 		{E7826211-85D9-4FE9-A1E1-01FC89D55D87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7826211-85D9-4FE9-A1E1-01FC89D55D87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7826211-85D9-4FE9-A1E1-01FC89D55D87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63C0BFA7-A0D9-4F81-99FA-32C2015BE10F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63C0BFA7-A0D9-4F81-99FA-32C2015BE10F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63C0BFA7-A0D9-4F81-99FA-32C2015BE10F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63C0BFA7-A0D9-4F81-99FA-32C2015BE10F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{DDB0F268-8DA7-4E22-B698-53BBAD1B525F} = {97118FF3-9655-4B69-8DBE-9B2E110FA41E}
 		{D5202EBC-8B9F-4C59-BAFE-08AEEE707097} = {97118FF3-9655-4B69-8DBE-9B2E110FA41E}
 		{E7826211-85D9-4FE9-A1E1-01FC89D55D87} = {97118FF3-9655-4B69-8DBE-9B2E110FA41E}
+		{63C0BFA7-A0D9-4F81-99FA-32C2015BE10F} = {97118FF3-9655-4B69-8DBE-9B2E110FA41E}
 	EndGlobalSection
 EndGlobal

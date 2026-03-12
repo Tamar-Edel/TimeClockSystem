@@ -5,10 +5,20 @@ import ClockButtons from '../components/shifts/ClockButtons'
 import CurrentShiftCard from '../components/shifts/CurrentShiftCard'
 import ShiftTable from '../components/shifts/ShiftTable'
 import { useAuth } from '../context/AuthContext'
+import { useLiveClock } from '../hooks/useLiveClock'
+
+function formatTime(date) {
+  return date.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'Europe/Zurich' })
+}
+
+function formatDateFull(date) {
+  return date.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Zurich' })
+}
 
 export default function DashboardPage() {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
+  const now = useLiveClock()
 
   const [currentShift, setCurrentShift] = useState(null)
   const [history, setHistory] = useState([])
@@ -66,21 +76,91 @@ export default function DashboardPage() {
     navigate('/login')
   }
 
+  // Stats derived from history — closed shifts only
+  const closedShifts = history.filter(s => !s.isOpen)
+  const totalMins = closedShifts.reduce((acc, s) => acc + (s.durationMinutes ?? 0), 0)
+  const avgMins = closedShifts.length ? Math.round(totalMins / closedShifts.length) : 0
+
   return (
-    <div>
-      <div>
-        <h1>Welcome, {user?.fullName}</h1>
-        <button onClick={handleLogout}>Logout</button>
-      </div>
-      {error && <p>{error}</p>}
-      <CurrentShiftCard currentShift={currentShift} />
-      <ClockButtons
-        currentShift={currentShift}
-        onClockIn={handleClockIn}
-        onClockOut={handleClockOut}
-        isLoading={isLoading}
-      />
-      <ShiftTable history={history} />
+    <div className="app">
+
+      {/* ── Topbar ── */}
+      <header className="topbar">
+        <div className="topbar-brand">
+          <div className="topbar-brand-dot" />
+          TimeClock
+        </div>
+        <div className="topbar-right">
+          <div className="topbar-user">
+            Logged in as <span>{user?.fullName}</span>
+          </div>
+          <button className="btn-logout" onClick={handleLogout}>Sign Out</button>
+        </div>
+      </header>
+
+      {/* ── Main Grid ── */}
+      <main className="main">
+
+        {/* ── Left Panel: clock + status + button ── */}
+        <div className="panel-time">
+
+          <div className="clock-display">
+            <div className="clock-label">External Time Source</div>
+            <div className="clock-time">{formatTime(now)}</div>
+            <div className="clock-date">{formatDateFull(now)}</div>
+            <div className="clock-source">
+              <div className="source-dot" />
+              timeapi.io
+            </div>
+          </div>
+
+          <CurrentShiftCard currentShift={currentShift} />
+
+          <ClockButtons
+            currentShift={currentShift}
+            onClockIn={handleClockIn}
+            onClockOut={handleClockOut}
+            isLoading={isLoading}
+          />
+
+          {error && (
+            <div className="login-error" style={{ marginTop: '0' }}>{error}</div>
+          )}
+
+        </div>
+
+        {/* ── Right Panel: stats + history ── */}
+        <div className="panel-right">
+
+          <div className="stats-row">
+            <div className="stat-card accent">
+              <div className="stat-label">Total Shifts</div>
+              <div className="stat-value amber">{history.length}</div>
+              <div className="stat-sub">all time</div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-label">Hours Logged</div>
+              <div className="stat-value">
+                {Math.floor(totalMins / 60)}
+                <span style={{ fontSize: '1rem', color: 'var(--muted)' }}>h</span>
+              </div>
+              <div className="stat-sub">{totalMins % 60}m remaining</div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-label">Avg Shift</div>
+              <div className="stat-value">
+                {Math.floor(avgMins / 60)}
+                <span style={{ fontSize: '1rem', color: 'var(--muted)' }}>h</span>
+              </div>
+              <div className="stat-sub">{avgMins % 60}m average</div>
+            </div>
+          </div>
+
+          <ShiftTable history={history} />
+
+        </div>
+
+      </main>
     </div>
   )
 }

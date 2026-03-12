@@ -24,6 +24,20 @@ public class ExceptionHandlingMiddleware
             var body = JsonSerializer.Serialize(new { message = ex.Message });
             await context.Response.WriteAsync(body);
         }
+        catch (KeyNotFoundException ex)
+        {
+            context.Response.StatusCode = 404;
+            context.Response.ContentType = "application/json";
+            var body = JsonSerializer.Serialize(new { message = ex.Message });
+            await context.Response.WriteAsync(body);
+        }
+        catch (UnauthorizedAccessException)
+        {
+            context.Response.StatusCode = 401;
+            context.Response.ContentType = "application/json";
+            var body = JsonSerializer.Serialize(new { message = "Unauthorized." });
+            await context.Response.WriteAsync(body);
+        }
         catch (Exception)
         {
             context.Response.StatusCode = 500;

@@ -64,11 +64,17 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization();
 
+// In development, allowed origins are read from AllowedOrigins in appsettings.Development.json.
+// In production, configure AllowedOrigins in environment variables or appsettings.Production.json.
+// This avoids hardcoding the frontend port here — change it in config, not in code.
+var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>()
+    ?? Array.Empty<string>();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("FrontendPolicy", policy =>
     {
-        policy.WithOrigins("http://localhost:5173")
+        policy.WithOrigins(allowedOrigins)
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
@@ -83,18 +89,29 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
-app.UseHttpsRedirection();
 app.UseCors("FrontendPolicy");
+
+// Skip HTTPS redirection in development so the frontend (plain HTTP) is not
+// unexpectedly redirected. In production, HTTPS redirection is kept active.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 
-using (var scope = app.Services.CreateScope())
+try
 {
+    using var scope = app.Services.CreateScope();
     var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     var hasher = scope.ServiceProvider.GetRequiredService<IPasswordHasher>();
     await context.Database.MigrateAsync();
     await DbInitializer.SeedAsync(context, hasher);
+}
+catch (Exception ex)
+{
+    app.Logger.LogError(ex, "Database initialization failed. The application will start, but database features may be unavailable.");
 }
 
 app.Run();
